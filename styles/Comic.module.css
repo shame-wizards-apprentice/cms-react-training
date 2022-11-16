@@ -1,0 +1,22 @@
+/* Grid */
+.comic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(183px, 1fr));
+    gap: 20px;
+    padding: 0 60px;
+}
+
+/* Comic */
+
+.comic .img-cont {
+    width: 125px;
+    height: 188px;
+    position: relative;
+}
+
+@media(min-width: 64em) {
+    .comic .img-cont {
+        width: 183px;
+        height: 276px;
+    }
+}

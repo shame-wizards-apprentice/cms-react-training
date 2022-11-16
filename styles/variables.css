@@ -1,0 +1,16 @@
+:root {
+    --karla: "Karla", sans-serif;
+    --montserrat: "Montserrat", sans-serif;
+
+    --font-weight-normal: 400;
+    --font-weight-bold: 700;
+    --font-weight-extra-bold: 900;
+
+    /* Colors */
+    --white: #FFFFFF;
+    --off-white: #F8F8F2;
+    --black: #000000;
+    --gray-dark: #222222;
+    --pink: #C24868;
+    --mint: #9ECFC5;
+}
