@@ -2,18 +2,17 @@ import styles from '../styles/Comic.module.css';
 
 type ButtonProps = {
     id: number;
-    title: string;
     saved: boolean;
-    onClick: React.MouseEventHandler;
+    onClick(): void;
 }
 
-const Button = (props: ButtonProps) => {
-    const ariaLabel = `${props.saved ? 'remove from favorites' : 'save to favorites'}`
+const Button = ({id, saved, onClick}: ButtonProps) => {
+    const ariaLabel = `${saved ? 'remove from favorites' : 'save to favorites'}`
     return (
         <button
             className={styles["favorite-button"]}
-            data-id={props.id}
-            onClick={props.onClick}
+            data-id={id}
+            onClick={onClick}
             aria-label = {ariaLabel}
         ></button>
     )

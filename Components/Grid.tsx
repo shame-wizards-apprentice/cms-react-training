@@ -15,7 +15,7 @@ const ComicGrid = () => {
                         id={comic.id}
                         title={comic.title}
                         issue={comic.issueNumber}
-                        date={comic.publishDate}
+                        publishDate={comic.publishDate}
                         creators={comic.creators.map((creator) => creator.name.split(' ')[1])}
                         imageSource={comic.thumbnail}
                     />
