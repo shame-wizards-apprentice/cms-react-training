@@ -16,7 +16,7 @@ const Detail = ({issue, publishDate, creators}: ComicDetails) => {
                 <strong>Published:</strong><span>{displayDate(publishDate)}</span>
             </li>
             <li className={styles["list-item"]} data-testid="creators-list">
-                <strong>Creators:</strong><span>{creators.join(',')}</span>
+                <strong>Creators:</strong><span>{creators.join(', ')}</span>
             </li>
         </ul>
     )

@@ -1,15 +1,60 @@
 .favorites-grid {
     width: 265px;
+    height: fit-content;
     background-color: var(--gray-dark);
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 26px;
 }
 
 .favorites-grid h3 {
     font-family: var(--montserrat);
     font-size: 25px;
     font-weight: 900px;
+    color: var(--off-white);
+}
+
+.faved-comic {
+    display: flex;
+    gap: 10px;
+    max-width: 202px;
+}
+
+.faved-comic .img-cont {
+    width: 50px;
+    height: 75px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.faved-comic .remove-btn {
+    width: 12px;
+    height: 12px;
+    background-color: var(--off-white);
+    color: var(--pink);
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    font-size: 8px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faved-comic .comic-title {
+    font-family: var(--karla);
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.faved-comic .issue-number {
+    font-family: var(--karla);
+    font-size: 14px;
     color: var(--off-white);
 }
 

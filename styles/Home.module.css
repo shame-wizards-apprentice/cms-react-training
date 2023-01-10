@@ -2,6 +2,10 @@
   padding: 0 20px;
 }
 
+.comic-section {
+  margin-bottom: 60px;
+}
+
 .intro-section {
   padding-top: 20px;
 }
@@ -34,6 +38,10 @@
 }
 
 @media(min-width:64em) {
+  .filter-results {
+    min-width: 700px;
+  }
+
   .intro-section, .comic-section {
     padding: 0 60px;
   }
@@ -62,5 +70,12 @@
   .comic-section {
     display: flex;
     gap: 60px;
+    margin-bottom: 90px;
+  }
+}
+
+@media(min-width:90em) {
+  .filter-results {
+    min-width: 995px;
   }
 }

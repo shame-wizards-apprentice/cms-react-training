@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import {useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFavoriteState, setFavoriteState } from '../../store/favoriteSlice';
 import Button from './Button';
 import Detail from './Detail';
 import styles from '../../styles/Comic.module.css';
@@ -20,8 +22,21 @@ export interface ComicProps extends ComicDetails {
 const Comic = ({issue, publishDate, creators, id, title, imageSource}: ComicProps) => {
     const [saved, setSaved] = useState(false);
 
-    const handleButtonClick = () => {
+    const dispatch = useDispatch();
+    const favorites = useSelector(selectFavoriteState);
+
+    const handleFave = () => {
         setSaved(saved ? false : true); 
+        if(favorites.length < 10) {
+            const newFaves = favorites.concat({
+                issue: issue,
+                id: id,
+                title: title,
+                imageSource: imageSource
+            });
+
+            dispatch(setFavoriteState(newFaves));
+        }
     }
 
     return (
@@ -32,8 +47,8 @@ const Comic = ({issue, publishDate, creators, id, title, imageSource}: ComicProp
                     alt={`${title} cover photo`}
                     fill
                 />
+                <Button id={id} onClick={handleFave} />
             </div>
-            <Button id={id} saved={saved} onClick={handleButtonClick} />
             <h3 className={styles["comic-title"]}>{title}</h3>
             <Detail issue={issue} publishDate={publishDate} creators={creators} />
         </article>

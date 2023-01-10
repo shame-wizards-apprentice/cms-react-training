@@ -6,6 +6,7 @@ import { selectStatusState, setStatusState } from '../../store/statusSlice';
 import useMarvelData from '../../Hooks/useMarvelData';
 import Comic from './Comic';
 import styles from '../../styles/Comic.module.css';
+import data from '../../Hooks/comicData';
 
 const ComicGrid = () => {
     const dispatch = useDispatch();
@@ -15,8 +16,10 @@ const ComicGrid = () => {
     const status = useSelector(selectStatusState);
     const comics = useSelector(selectComicState);
 
-    const publicKey = '982f779d521336d1db76893b0b279c1e';
-    const queryUrl = `https://gateway.marvel.com/v1/public/${filterName}/${filterValue}/comics?apikey=${publicKey}`;
+    const publicKey = 'a1886df29b985ffbd4c0fa6e0aaca37a';
+    const queryUrl = `https://gateway.marvel.com/v1/public/comics?apikey=${publicKey}`;
+
+    // https://gateway.marvel.com/v1/public/${filterName}/${filterValue}/comics?apikey=${publicKey}
 
     const successCallback = (data: []) => {
         dispatch(setStatusState('Success'));
@@ -28,9 +31,14 @@ const ComicGrid = () => {
         dispatch(setComicState([]));
     }
 
+    // useEffect(() => {
+    //     useMarvelData(queryUrl, successCallback, errorCallback);
+    // }, []);
+
     useEffect(() => {
-        useMarvelData(queryUrl, successCallback, errorCallback);
-    }, [status, comics, filterName, filterValue]);
+        dispatch(setStatusState('Success'));
+        dispatch(setComicState(data[0]));
+    })
 
     switch(status) {
         case 'Loading':
@@ -39,7 +47,7 @@ const ComicGrid = () => {
         case 'Success':
             return(
                 <section className={styles["comic-grid"]}>
-                    {comics?.map((comic) => (
+                    {/* {comics?.map((comic) => (
                             <Comic
                                 id={comic.id}
                                 title={comic.title}
@@ -48,7 +56,20 @@ const ComicGrid = () => {
                                 creators={comic.creators.items.map((item) => item.name)}
                                 imageSource={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                             />
-                    ))}
+                    ))} */}
+
+                        {comics.map((comic) => {
+                                        return (
+                                            <Comic
+                                                id={comic.id}
+                                                title={comic.title}
+                                                issue={comic.issueNumber}
+                                                publishDate={comic.publishDate}
+                                                creators={comic.creators.map((creator) => creator.name.split(' ')[1])}
+                                                imageSource={comic.thumbnail}
+                                            />
+                                        )
+                                    })}
                 </section>
             )
             break;

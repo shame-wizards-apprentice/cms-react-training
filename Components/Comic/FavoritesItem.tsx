@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFavoriteState, setFavoriteState } from '../../store/favoriteSlice';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import styles from '../../styles/Favorites.module.css';
 
 export interface FavoriteProps {
@@ -28,10 +30,14 @@ const FavoritesItem = ({ issue, title, imageSource, id }: FavoriteProps) => {
                     alt={`${title} cover photo`}
                     fill
                 />
-                <button className={styles['remove-btn']} onClick={removeFromFavorites}>X</button>
+                <button className={styles['remove-btn']} onClick={removeFromFavorites}>
+                    <FontAwesomeIcon icon={faXmark} />
+                </button>
             </div>
-            <h3 className={styles["comic-title"]}>{title}</h3>
-            <span className={styles['issue-number']}>{issue}</span>
+            <div className={styles['comic-info']}>
+                <h3 className={styles["comic-title"]}>{title}</h3>
+                <span className={styles['issue-number']}>Issue: {issue}</span>
+            </div>
         </article>
     )
 }
