@@ -1,0 +1,116 @@
+.hero-section {
+    width: 100%;
+    height: 250px;
+    background-image: url(/hero-photo.png);
+    position: relative;
+    background-size: cover;
+}
+
+.hero-section:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+    background: linear-gradient(#000000B3, transparent);
+    pointer-events: none;
+}
+
+.hero-section:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    bottom: -6px;
+    left: 0;
+    background-image: url(/halftone.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.hero-section .hero-text {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: var(--off-white);
+    background-color: rgba(194, 72, 104, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 572px;
+    height: 80px;
+}
+
+.hero-section .hero-text h1 {
+    filter: drop-shadow(3px 3px 0px var(--gray-dark));
+}
+
+.hero-section .logo {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-image: url(/logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 5px;
+    left: 10px;
+}
+
+.hero-section .nav-section {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.hero-section .nav-link {
+    color: var(--off-white);
+    font-family: var(--montserrat);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+@media(min-width:64em) {
+    .hero-section {
+        height: 650px;
+        background-image: url(/hero-photo@2x.png);
+    }
+
+    .hero-section .hero-text {
+        height: 148px;
+    }
+
+    .hero-section:before {
+        height: 179px;
+    }
+
+    .hero-section:after {
+        height: 176px;
+        background-image: url(/halftone@2x.png);
+    }
+
+    .hero-section .logo {
+        width: 106.07px;
+        height: 106.07px;
+        background-image: url(/logo@2x.png);
+        top: 20px;
+        left: 60px;
+    }
+
+    .hero-section .nav-section {
+        top: 51px;
+        right: 60px;
+        gap: 30px;
+    }
+
+    .hero-section .nav-link {
+        font-size: 18px;
+    }
+}

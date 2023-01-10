@@ -1,0 +1,43 @@
+.filter-bar {
+    min-height: 60px;
+    background-color: var(--gray-dark);
+    color: var(--off-white);
+    font-family: var(--montserrat);
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.filter-bar .filter-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.filter-bar select {
+    background-color: var(--gray-dark);
+    color: var(--off-white);
+    font-family: var(--karla);
+    font-size: 16px;
+    border: 1px solid var(--gray);
+    border-radius: 3px;
+}
+
+/* Media queries */
+@media(min-width: 64em) {
+    .filter-bar {
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        gap: 20px;
+        max-width: 995px; 
+    }
+
+    .filter-bar select {
+        width: 245px;
+    }
+
+    .filter-bar .filter-label {
+        padding-left: 20px;
+    }
+}

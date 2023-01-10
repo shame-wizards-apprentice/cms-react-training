@@ -3,4 +3,36 @@
 
 body {
   background: var(--off-white);
+  margin: 0;
 }
+
+h1, h2, a, p {
+  font-family: var(--montserrat);
+}
+
+h1 {
+  font-size: 40px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--pink);
+} 
+
+p {
+  font-size: 12px;
+  color: var(--gray-dark);
+}
+
+/* Media Queries */
+@media(min-width:64em) {
+
+  h1 {
+    font-size: 61px;
+  }
+
+  p {
+    font-size: 20px;
+  } 
+}
+
