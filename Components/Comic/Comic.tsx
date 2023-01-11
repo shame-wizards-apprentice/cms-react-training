@@ -36,6 +36,7 @@ const Comic = ({issue, publishDate, creators, id, title, imageSource}: ComicProp
             });
 
             dispatch(setFavoriteState(newFaves));
+            localStorage.setItem('currentFaves', JSON.stringify(favorites));
         }
     }
 

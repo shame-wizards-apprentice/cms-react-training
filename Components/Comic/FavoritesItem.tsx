@@ -18,8 +18,9 @@ const FavoritesItem = ({ issue, title, imageSource, id }: FavoriteProps) => {
     const favorites = useSelector(selectFavoriteState);
     
     const removeFromFavorites = (event: React.MouseEvent) => {
-        const newFavorites = favorites.filter(favorite => {favorite.id !== id});
+        const newFavorites = favorites.filter(favorite => {!favorite.id == id});
         dispatch(setFavoriteState(newFavorites));
+        localStorage.setItem('currentFaves', JSON.stringify(newFavorites));
     }
 
     return (

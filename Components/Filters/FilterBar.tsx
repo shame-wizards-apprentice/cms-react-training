@@ -1,6 +1,9 @@
 import React from 'react';
 import { selectFilterNameState, setFilterNameState, selectFilterValueState, setFilterValueState } from '../../store/filterSlice';
+import { selectComicState, setComicState } from '../../store/comicSlice';
+import { selectStatusState, setStatusState } from '../../store/statusSlice';
 import { useDispatch, useSelector } from "react-redux";
+import useMarvelData from '../../Hooks/useMarvelData';
 import styles from '../../styles/Filter.module.css'
 
 const characterFilters = [
@@ -65,6 +68,21 @@ export default function FilterBar() {
     const dispatch = useDispatch();
     const filterName = useSelector(selectFilterNameState);
     const filterValue = useSelector(selectFilterValueState);
+    const status = useSelector(selectStatusState);
+    const comics = useSelector(selectComicState);
+
+    const publicKey = 'a1886df29b985ffbd4c0fa6e0aaca37a';
+    const queryUrl = `https://gateway.marvel.com/v1/public/${filterName}/${filterValue}/comics?apikey=${publicKey}`;
+
+    const successCallback = (data: []) => {
+        dispatch(setStatusState('Success'));
+        dispatch(setComicState(data));
+    }
+    
+    const errorCallback = () => {
+        dispatch(setStatusState('Error'));
+        dispatch(setComicState([]));
+    }
 
     function updateFilter(event: React.ChangeEvent) {
         const target = event.currentTarget as HTMLSelectElement;
@@ -76,8 +94,11 @@ export default function FilterBar() {
         } else {
             event.target.hasAttribute('data-character-filter') ? dispatch(setFilterNameState('character')) : dispatch(setFilterNameState('creator'));
             dispatch(setFilterValueState(value.toString()));
+
+            useMarvelData(queryUrl, successCallback, errorCallback);
         }
     }
+
 
     return(
         <header className={styles['filter-bar']}>
