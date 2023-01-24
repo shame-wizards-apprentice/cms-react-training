@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFavoriteState, setFavoriteState } from '../../store/favoriteSlice';
+import favoriteSlice, { selectFavoriteState, setFavoriteState } from '../../store/favoriteSlice';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import styles from '../../styles/Favorites.module.css';
@@ -18,7 +18,7 @@ const FavoritesItem = ({ issue, title, imageSource, id }: FavoriteProps) => {
     const favorites = useSelector(selectFavoriteState);
     
     const removeFromFavorites = (event: React.MouseEvent) => {
-        const newFavorites = favorites.filter(favorite => {!favorite.id == id});
+        const newFavorites = favorites.filter (favorite => favorite.id != id);
         dispatch(setFavoriteState(newFavorites));
         localStorage.setItem('currentFaves', JSON.stringify(newFavorites));
     }

@@ -27,7 +27,7 @@ const Comic = ({issue, publishDate, creators, id, title, imageSource}: ComicProp
 
     const handleFave = () => {
         setSaved(saved ? false : true); 
-        if(favorites.length < 10) {
+        if(favorites?.length < 10) {
             const newFaves = favorites.concat({
                 issue: issue,
                 id: id,

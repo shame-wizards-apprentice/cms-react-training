@@ -12,13 +12,17 @@ export default function FavoritesGrid() {
         const favoriteString: string = localStorage.getItem('currentFaves');
         const favoritesArray: [] = JSON.parse(favoriteString);
 
+        if(!favoriteString) {
+            localStorage.setItem('currentFaves', '[]');
+        }
+
         dispatch(setFavoriteState(favoritesArray));
     }, []);
 
     return(
         <section className={styles['favorites-grid']}>
             <h3>Favorites</h3>
-            {   favorites.length ?
+            {   favorites?.length ?
                 favorites?.map((favorite) => (
                     <FavoritesItem issue={favorite.issue} title={favorite.title} imageSource={favorite.imageSource} id={favorite.id}/>
                 )) :
