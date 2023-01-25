@@ -77,6 +77,10 @@
     font-size: 12px;
 }
 
+.hero-section .nav-link span {
+    font-weight: normal;
+}
+
 @media(min-width:64em) {
     .hero-section {
         height: 650px;
