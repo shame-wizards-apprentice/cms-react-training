@@ -3,7 +3,12 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(183px, 1fr));
     gap: 20px;
-    padding: 0 60px;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.main-content {
+    max-width: 995px;
 }
 
 /* Comic */
@@ -58,6 +63,34 @@
     cursor: pointer;
 }
 
+/* Pager */
+
+.pager-cont {
+    width: 100%;
+}
+
+.pager-cont .pager ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.pager-cont .pager ul li button {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: var(--gray-dark);
+    color: var(--off-white);
+}
+
+.pager-cont .pager ul li span {
+    font-family: var(--karla);
+    font-size: 18px;
+    color: var(--gray-dark);
+}
+
 @media(hover:hover) {
     .comic .favorite-button:hover {
         background-color: var(--pink);
@@ -66,6 +99,10 @@
 }
 
 @media(min-width: 64em) {
+    .comic-grid {
+        margin-bottom: 80px;
+    }
+    
     .comic .img-cont {
         width: 183px;
         height: 276px;

@@ -2,10 +2,12 @@ export default function useMarvelData(url: string, successCallback: Function, er
 
     fetch(url).then((res) => {
         if(!res.ok) throw new Error(`Curses! ${res.status} ${res.statusText}`);
-        return res.json();
+        const responseJSON = res.json();
+        return responseJSON;
     }).then((data) => {
         const comicData = data?.data?.results;
-        successCallback(comicData);
+        const totalComics = data?.data?.total;
+        successCallback(comicData, totalComics);
         return comicData;
     }).catch((err) => {
         if(err) errorCallback();

@@ -3,6 +3,7 @@ import { comicSlice } from "./comicSlice";
 import { filterSlice } from "./filterSlice";
 import { statusSlice } from "./statusSlice";
 import { favoriteSlice } from "./favoriteSlice";
+import { pagerSlice } from "./pagerSlice";
 import { createWrapper } from "next-redux-wrapper";
 
 const makeStore = () =>
@@ -11,7 +12,8 @@ const makeStore = () =>
       [comicSlice.name]: comicSlice.reducer,
       [filterSlice.name]: filterSlice.reducer,
       [statusSlice.name]: statusSlice.reducer,
-      [favoriteSlice.name]: favoriteSlice.reducer
+      [favoriteSlice.name]: favoriteSlice.reducer,
+      [pagerSlice.name]: pagerSlice.reducer
     },
     devTools: true,
 });
