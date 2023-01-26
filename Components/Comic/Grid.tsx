@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectComicState, setComicState } from '../../store/comicSlice';
 import { selectStatusState, setStatusState } from '../../store/statusSlice';
 import { selectStartCountState, setStartCountState, selectEndCountState, setEndCountState, selectOffsetState, setOffsetState, selectTotalState, setTotalState } from '../../store/pagerSlice';
+import { selectFilterNameState, setFilterNameState, selectFilterValueState, setFilterValueState } from '../../store/filterSlice';
 import useMarvelData from '../../Hooks/useMarvelData';
 import Comic from './Comic';
 import Pager from './Pager';
+import FilterBar from '../Filters/FilterBar';
 import styles from '../../styles/Comic.module.css';
 
 const ComicGrid = () => {
@@ -18,10 +20,16 @@ const ComicGrid = () => {
     let endCount = useSelector(selectEndCountState);
     const total = useSelector(selectTotalState);
     let offset = useSelector(selectOffsetState);
+    const filterName = useSelector(selectFilterNameState);
+    const filterValue = useSelector(selectFilterValueState);
 
+
+    // API query URLs
     const publicKey = 'a1886df29b985ffbd4c0fa6e0aaca37a';
     const baseURL = 'https://gateway.marvel.com/v1/public/comics?'
+    const queryURL = `https://gateway.marvel.com/v1/public/${filterName}/${filterValue}/comics?orderBy=modified&limit=15&offset=0&apikey=${publicKey}`;
 
+    // API callbacks
     const successCallback = (data: [], total: number) => {
         dispatch(setStatusState('Success'));
         dispatch(setComicState(data));
@@ -33,6 +41,7 @@ const ComicGrid = () => {
         dispatch(setComicState([]));
     }
 
+    // Pager functions
     const handleNextClick = () => {
         if(endCount < total) {
             dispatch(setStartCountState(startCount+limit))
@@ -53,6 +62,23 @@ const ComicGrid = () => {
         }
     }
 
+    // Filter update function
+    function updateFilter(event: React.ChangeEvent) {
+        const target = event.currentTarget as HTMLSelectElement;
+        const value = target.value;
+
+        dispatch(setFilterValueState(value.toString()));
+
+        if(target.hasAttribute('data-character-filter')) {
+            dispatch(setFilterNameState('characters'));
+            document.querySelector('[data-creator-filter]').selectedIndex = 0;
+        } else {
+            dispatch(setFilterNameState('creators'));
+            document.querySelector('[data-character-filter]').selectedIndex = 0;
+        }
+        useMarvelData(queryURL, successCallback, errorCallback);
+    }
+
     useEffect(() => {
         setStartCountState(startCount);
         setEndCountState(limit);
@@ -67,6 +93,8 @@ const ComicGrid = () => {
         case 'Success':
             return(
                 <section className={styles["main-content"]}>
+                    <FilterBar 
+                        updateFilter={updateFilter}/>
                     <section className={styles["comic-grid"]}>
                         {comics?.map((comic) => (
                                 <Comic

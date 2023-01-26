@@ -13,7 +13,13 @@
 
 /* Comic */
 
+.comic {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
 .comic .img-cont {
+    min-width: 125px;
     width: 125px;
     height: 188px;
     position: relative;
@@ -21,11 +27,15 @@
 
 .comic .comic-title {
     font-family: var(--montserrat);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: var(--gray-dark);
     margin-top: 0;
     margin-bottom: 10px;
+}
+
+.comic .info-section {
+    padding-right: 20px;
 }
 
 .comic .info-list {
@@ -56,11 +66,14 @@
     background-color: var(--gray-dark);
     color: var(--off-white);
     position: absolute;
-    bottom: -10px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    bottom: 50%;
+    left: -15px;
     cursor: pointer;
+}
+
+.comic[data-saved=true] .favorite-button {
+    background-color: var(--pink);
+    border: 2px solid var(--off-white);
 }
 
 /* Pager */
@@ -98,13 +111,35 @@
     }
 }
 
+@media(min-width:40em) {
+    .comic {
+        display: block;
+    }
+
+    .comic .favorite-button {
+        bottom: -10px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+}
+
 @media(min-width: 64em) {
+
     .comic-grid {
         margin-bottom: 80px;
     }
-    
+
     .comic .img-cont {
         width: 183px;
         height: 276px;
+    }
+
+    .comic .comic-title {
+        font-size: 18px;
+    }
+
+    .comic .info-section {
+        padding: 0;
     }
 }

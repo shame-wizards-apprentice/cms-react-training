@@ -36,7 +36,7 @@ const FavoritesItem = ({ issue, title, imageSource, id }: FavoriteProps) => {
                 </button>
             </div>
             <div className={styles['comic-info']}>
-                <h3 className={styles["comic-title"]}>{title}</h3>
+                <h4 className={styles["comic-title"]}>{title}</h4>
                 <span className={styles['issue-number']}>Issue: {issue}</span>
             </div>
         </article>

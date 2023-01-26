@@ -2,7 +2,6 @@ import { Fragment } from 'react';
 import styles from '../styles/Home.module.css';
 import Grid from '../Components/Comic/Grid';
 import FavoritesGrid from '../Components/Comic/FavoritesGrid';
-import FilterBar from '../Components/Filters/FilterBar';
 import Header from '../Components/Pages/Header';
 import Footer from '../Components/Pages/Footer';
 
@@ -24,10 +23,9 @@ export default function Home() {
       </section>
       <section className={styles['comic-section']}>
         <div className={styles['filter-results']}>
-          <FilterBar />
           <Grid />
         </div>
-        <FavoritesGrid />
+        <FavoritesGrid mobileGrid={false} showMobileGrid={false} />
       </section>
       <Footer />
     </Fragment>

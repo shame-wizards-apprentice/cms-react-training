@@ -1,11 +1,12 @@
-import React from 'react';
-import { selectFilterNameState, setFilterNameState, selectFilterValueState, setFilterValueState } from '../../store/filterSlice';
-import { selectComicState, setComicState } from '../../store/comicSlice';
-import { selectStatusState, setStatusState } from '../../store/statusSlice';
-import { selectStartCountState, setStartCountState, selectEndCountState, setEndCountState, selectOffsetState, setOffsetState, selectTotalState, setTotalState } from '../../store/pagerSlice';
-import { useDispatch, useSelector } from "react-redux";
-import useMarvelData from '../../Hooks/useMarvelData';
-import styles from '../../styles/Filter.module.css'
+import React, { useState, useEffect, useCallback } from 'react';
+import FavoritesGrid from '../Comic/FavoritesGrid';
+import styles from '../../styles/Filter.module.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { faBoltLightning } from "@fortawesome/free-solid-svg-icons";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+
+const breakpoint = 1024;
+const resizeEvents = ["resize", "orientationchange"]
 
 const characterFilters = [
     {
@@ -65,56 +66,59 @@ const creatorFilters = [
     },
 ];
 
-export default function FilterBar() {
-    const limit = 15;
-    const dispatch = useDispatch();
-    const filterName = useSelector(selectFilterNameState);
-    const filterValue = useSelector(selectFilterValueState);
-    const status = useSelector(selectStatusState);
-    const comics = useSelector(selectComicState);
-    let startCount = useSelector(selectStartCountState);
-    let endCount = useSelector(selectEndCountState);
-    const total = useSelector(selectTotalState);
-    let offset = useSelector(selectOffsetState);
+type filterBarProps = {
+    updateFilter(): void;
+}
 
-    const publicKey = 'a1886df29b985ffbd4c0fa6e0aaca37a';
-    const baseURL = 'https://gateway.marvel.com/v1/public/';
-    const queryURL = `${baseURL}${filterName}/${filterValue}/comics?orderBy=modified&limit=${limit}&offset=${offset}&apikey=${publicKey}`;
+export default function FilterBar({updateFilter}: filterBarProps) {
+    const [mobile, setMobile] = useState(true);
+    const [open, setOpen] = useState(false);
+    const [showFaves, setShowFaves] = useState(false);
 
-    const successCallback = (data: []) => {
-        dispatch(setStatusState('Success'));
-        dispatch(setComicState(data));
-    }
-    
-    const errorCallback = () => {
-        dispatch(setStatusState('Error'));
-        dispatch(setComicState([]));
-    }
+    const handleResize = useCallback(() => {
+      window.innerWidth >= breakpoint ?
+      setMobile(false) :
+      setMobile(true)
+    }, [])
+  
+    useEffect(() => {
+      handleResize();
+  
+      resizeEvents.forEach((e) => window.addEventListener(e, handleResize));
+    }, [])
 
-    function updateFilter(event: React.ChangeEvent) {
-        const target = event.currentTarget as HTMLSelectElement;
-        const value = target.value;
-
-        dispatch(setFilterValueState(filterValue.replace(filterValue, value.toString())));
-
-        target.hasAttribute('data-character-filter') ? 
-        dispatch(setFilterNameState(filterName.replace(filterName, 'characters'))) : 
-        dispatch(setFilterNameState(filterName.replace(filterName, 'creators')));
-
-        console.log(`Here's your filter name: ${filterName}`)
-        console.log(`Here's your filter value: ${filterValue}`)
-
-
-        console.log(queryURL);
-
-        // useMarvelData(queryURL, successCallback, errorCallback);
+    const toggleMobileFilters = () => {
+        setOpen(!open);
     }
 
+    const toggleMobileFaves = () => {
+        setShowFaves(!showFaves);
+    }
 
     return(
         <header className={styles['filter-bar']}>
-            <span className={styles['filter-label']}>Filter by:</span>
-            <select className={styles['filter-dropdown']} data-character-filter onChange={updateFilter}>
+            {mobile ? 
+                <div className={styles["mobile-button-cont"]}>
+                    <button
+                        className={styles["filter-button"]}
+                        aria-label="show/hide filters"
+                        onClick={toggleMobileFilters}
+                    >
+                        Filter
+                        <FontAwesomeIcon icon={faFilter} />
+                    </button>
+                    <button 
+                        className={styles["favorites-button"]}
+                        aria-label="show/hide filters"
+                        onClick={toggleMobileFaves}
+                    >
+                        {showFaves ? 'Hide Favorites' : 'Show Favorites'}
+                        <FontAwesomeIcon icon={faBoltLightning} />  
+                    </button>
+                </div> :
+                <span className={styles['filter-label']}>Filter by:</span>
+            }
+            <select aria-hidden={open} className={styles['filter-dropdown']} data-character-filter onChange={updateFilter}>
                 <option value="">Character</option>
                 {characterFilters.map((filter) => {
                     return(
@@ -123,7 +127,7 @@ export default function FilterBar() {
                 })}
             </select>
 
-            <select className={styles['filter-dropdown']} onChange={updateFilter}>
+            <select aria-hidden={open} className={styles['filter-dropdown']} data-creator-filter onChange={updateFilter}>
                 <option value="">Creator</option>
                 {creatorFilters.map((filter) => {
                     return(
@@ -131,6 +135,7 @@ export default function FilterBar() {
                     )
                 })}
             </select>
+            <FavoritesGrid mobileGrid={true} showMobileGrid={showFaves} hideMobileFaves={toggleMobileFaves}/>
         </header>
     )
 

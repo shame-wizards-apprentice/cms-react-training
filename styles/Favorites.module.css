@@ -9,6 +9,10 @@
     padding: 10px;
 }
 
+.favorites-grid[data-mobile="false"] {
+    display: none;
+}
+
 .favorites-grid h3 {
     font-family: var(--montserrat);
     font-size: 25px;
@@ -51,6 +55,7 @@
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 5px;
+    color: var(--off-white);
 }
 
 .faved-comic .issue-number {
@@ -59,8 +64,64 @@
     color: var(--off-white);
 }
 
+.favorites-grid[data-show-grid=false] {
+    display: none;
+}
+
+.favorites-grid[data-mobile=true] {
+    align-items: flex-start;
+    padding: 0;
+    width: 100%;
+}
+
+.favorites-grid[data-mobile=true] h3 {
+    margin: 0;
+    padding-left: 30px;
+}
+
+.favorites-grid[data-mobile=true] .faved-comic {
+    padding-left: 30px;
+}
+
+.favorites-grid[data-mobile=true] .remove-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 15px;
+    opacity: 80%;
+    top: -15px;
+    left: -15px;
+}
+
+.favorites-grid[data-mobile=true] .hide-button {
+    font-family: var(--montserrat);
+    font-weight: bold;
+    color: var(--off-white);
+    font-size: 14px;
+    background-color: var(--pink);
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    gap: 5px;
+}
+
 @media(min-width:64em) {
     .favorites-grid {
         min-height: 412px;
+        padding: 0 30px;
+    }
+
+    .favorites-grid .faved-comic {
+        margin-bottom: 26px;
+    }
+
+    .favorites-grid[data-mobile="false"] {
+        display: block;
+    }
+
+    .favorites-grid[data-mobile="true"] {
+        display: none;
     }
 }
