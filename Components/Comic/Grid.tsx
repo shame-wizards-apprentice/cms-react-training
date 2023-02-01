@@ -71,10 +71,10 @@ const ComicGrid = () => {
 
         if(target.hasAttribute('data-character-filter')) {
             dispatch(setFilterNameState('characters'));
-            document.querySelector('[data-creator-filter]').selectedIndex = 0;
+            document.querySelector('[data-creator-filter]')!.selectedIndex = 0;
         } else {
             dispatch(setFilterNameState('creators'));
-            document.querySelector('[data-character-filter]').selectedIndex = 0;
+            document.querySelector('[data-character-filter]')!.selectedIndex = 0;
         }
         useMarvelData(queryURL, successCallback, errorCallback);
     }
@@ -104,6 +104,7 @@ const ComicGrid = () => {
                                     publishDate={comic.publishDate}
                                     creators={comic.creators.items.map((item) => item.name)}
                                     imageSource={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                                    key={comic.id}
                                 />
                         ))}
                     </section>

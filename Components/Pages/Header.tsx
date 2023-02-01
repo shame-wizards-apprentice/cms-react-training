@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import Logo from './Logo';
 import { useSelector } from "react-redux";
 import { selectFavoriteState } from '../../store/favoriteSlice';
@@ -49,15 +50,15 @@ export default function Header() {
             </button> :
             <div className={styles["nav-cont"]}>
               {navItems.map((item) => (
-                <a href={item.path} className={styles['nav-link']}>{item.label}</a>
+                <Link href={item.path} className={styles['nav-link']}>{item.label}</Link>
               ))}
             </div>
           }
           {mobile ? 
             <span className={styles['nav-link']}><FontAwesomeIcon icon={faBoltLightning} /><span>({favorites.length})</span></span> :
-            <a href="#" className={styles['nav-link']}>
+            <Link href="#" className={styles['nav-link']}>
             <FontAwesomeIcon icon={faBoltLightning} /> My Favorites <span>({favorites.length})</span>
-            </a>
+            </Link>
           }
         </nav>
         <Logo />

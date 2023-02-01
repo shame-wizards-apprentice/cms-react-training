@@ -67,7 +67,7 @@ const creatorFilters = [
 ];
 
 type filterBarProps = {
-    updateFilter(): void;
+    updateFilter(event: React.ChangeEvent): void;
 }
 
 export default function FilterBar({updateFilter}: filterBarProps) {
@@ -85,7 +85,7 @@ export default function FilterBar({updateFilter}: filterBarProps) {
       handleResize();
   
       resizeEvents.forEach((e) => window.addEventListener(e, handleResize));
-    }, [])
+    }, [handleResize])
 
     const toggleMobileFilters = () => {
         setOpen(!open);
@@ -122,7 +122,7 @@ export default function FilterBar({updateFilter}: filterBarProps) {
                 <option value="">Character</option>
                 {characterFilters.map((filter) => {
                     return(
-                        <option value={filter.id}>{filter.name}</option>
+                        <option value={filter.id} key={filter.id}>{filter.name}</option>
                     )
                 })}
             </select>
@@ -131,7 +131,7 @@ export default function FilterBar({updateFilter}: filterBarProps) {
                 <option value="">Creator</option>
                 {creatorFilters.map((filter) => {
                     return(
-                        <option value={filter.id} data-creator-filter>{filter.name}</option>
+                        <option value={filter.id} key={filter.id} data-creator-filter>{filter.name}</option>
                     )
                 })}
             </select>

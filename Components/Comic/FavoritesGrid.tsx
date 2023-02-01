@@ -17,7 +17,7 @@ export default function FavoritesGrid({mobileGrid, showMobileGrid, hideMobileFav
     const favorites = useSelector(selectFavoriteState);
 
     useEffect(() => {
-        const favoriteString: string = localStorage.getItem('currentFaves');
+        const favoriteString: string | null = localStorage.getItem('currentFaves');
         const favoritesArray: [] = JSON.parse(favoriteString);
 
         if(!favoriteString) {
@@ -32,7 +32,7 @@ export default function FavoritesGrid({mobileGrid, showMobileGrid, hideMobileFav
             <h3>Favorites</h3>
             {   favorites?.length ?
                 favorites?.map((favorite) => (
-                    <FavoritesItem issue={favorite.issue} title={favorite.title} imageSource={favorite.imageSource} id={favorite.id}/>
+                    <FavoritesItem issue={favorite.issue} title={favorite.title} imageSource={favorite.imageSource} id={favorite.id} key={favorite.id}/>
                 )) :
 
                 <h3>Don't be a grump, pick some favorites</h3>
